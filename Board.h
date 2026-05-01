@@ -34,6 +34,14 @@ public:
 
     bool needsPromotion(int r, int c);
     void promotePawn(int r, int c, int choice);
+
+    // ── Check / Checkmate detection ──
+    Position findKing(string color);
+    bool isInCheck(string color);
+    bool isLegalMove(int fromR, int fromC, int toR, int toC);
+
+    // ── Castling ──
+    bool canCastle(string color, bool kingside);
 };
 
 #endif // BOARD_H

@@ -37,9 +37,14 @@ int main() {
             }
         }
 
-        // If count is 0, no pieces can move
+        // If count is 0, no pieces can move — check if it's checkmate or stalemate
         if (movablePieces.count == 0) {
-            cout << "\n" << currentTurn << " has no valid moves! Game Over.\n";
+            if (board.isInCheck(currentTurn)) {
+                string winner = (currentTurn == "White") ? "Black" : "White";
+                cout << "\nCHECKMATE! " << winner << " wins!\n";
+            } else {
+                cout << "\nSTALEMATE! The game is a draw.\n";
+            }
             break;
         }
 
@@ -90,6 +95,11 @@ int main() {
 
         // 4. Finally, process the physical move on the board
         board.makeMove(selectedSq.r, selectedSq.c, destination.r, destination.c);
+
+        // Announce check if the opponent's King is now under attack
+        string opponent = (currentTurn == "White") ? "Black" : "White";
+        if (board.isInCheck(opponent))
+            cout << "\nCHECK! " << opponent << "'s King is under attack!\n";
 
         // Check for Pawn Promotion
         if (board.needsPromotion(destination.r, destination.c)) {

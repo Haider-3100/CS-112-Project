@@ -2,7 +2,7 @@
 #include <cmath> // for abs()
 
 // ── Piece ─────────────────────────────────────────────────────────────────────
-Piece::Piece(string identity, string color) : identity(identity), color(color) {}
+Piece::Piece(string identity, string color) : identity(identity), color(color), hasMoved(false) {}
 Piece::~Piece() {}
 
 string Piece::getIdentity() { 
@@ -11,6 +11,14 @@ string Piece::getIdentity() {
 
 string Piece::getColor() { 
     return color; 
+}
+
+bool Piece::getHasMoved() {
+    return hasMoved;
+}
+
+void Piece::setHasMoved(bool moved) {
+    hasMoved = moved;
 }
 
 string Piece::getDisplay() {

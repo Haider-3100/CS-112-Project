@@ -12,6 +12,7 @@ class Piece {
 protected:
     string identity;  // "King", "Queen", "Rook", "Bishop", "Knight", "Pawn"
     string color;     // "White" or "Black"
+    bool hasMoved;    // Tracks if piece has ever moved (needed for castling)
 
 public:
     Piece(string identity, string color);
@@ -19,6 +20,8 @@ public:
 
     string getIdentity();
     string getColor();
+    bool getHasMoved();
+    void setHasMoved(bool moved);
 
     // Override in each subclass with piece-specific movement rules
     virtual bool isValidMove(int from_Row, int from_Col, int to_Row, int to_Col, Piece* grid[8][8]) = 0;
