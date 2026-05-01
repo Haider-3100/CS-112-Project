@@ -31,6 +31,9 @@ public:
     string getSquareName(int r, int c);
     MoveList getValidMoves(int r, int c);
     void makeMove(int fromR, int fromC, int toR, int toC);
+
+    bool needsPromotion(int r, int c);
+    void promotePawn(int r, int c, int choice);
 };
 
 #endif // BOARD_H

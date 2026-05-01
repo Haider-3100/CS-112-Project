@@ -86,3 +86,26 @@ void Board::makeMove(int fromR, int fromC, int toR, int toC) {
     grid[toR][toC] = grid[fromR][fromC]; 
     grid[fromR][fromC] = nullptr;        
 }
+
+bool Board::needsPromotion(int r, int c) {
+    Piece* p = grid[r][c];
+    if (p == nullptr) return false;
+    if (p->getIdentity() != "Pawn") return false;
+    // White pawns promote at row 0, Black pawns promote at row 7
+    if (p->getColor() == "White" && r == 0) return true;
+    if (p->getColor() == "Black" && r == 7) return true;
+    return false;
+}
+
+void Board::promotePawn(int r, int c, int choice) {
+    string col = grid[r][c]->getColor();
+    delete grid[r][c];  // Remove the old Pawn
+
+    switch (choice) {
+        case 1: grid[r][c] = new Queen(col);  break;
+        case 2: grid[r][c] = new Rook(col);   break;
+        case 3: grid[r][c] = new Bishop(col);  break;
+        case 4: grid[r][c] = new Knight(col);  break;
+        default: grid[r][c] = new Queen(col);  break;  // Default to Queen
+    }
+}

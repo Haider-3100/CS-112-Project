@@ -91,6 +91,24 @@ int main() {
         // 4. Finally, process the physical move on the board
         board.makeMove(selectedSq.r, selectedSq.c, destination.r, destination.c);
 
+        // Check for Pawn Promotion
+        if (board.needsPromotion(destination.r, destination.c)) {
+            board.display();
+            cout << "\nPawn promotion! Choose a piece:\n";
+            cout << "1. Queen\n2. Rook\n3. Bishop\n4. Knight\n";
+            int promoChoice;
+            while (true) {
+                cout << "Your choice: ";
+                if (cin >> promoChoice && promoChoice >= 1 && promoChoice <= 4) {
+                    break;
+                }
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+            }
+            board.promotePawn(destination.r, destination.c, promoChoice);
+        }
+
         // 5. Alternate the turns securely
         currentTurn = (currentTurn == "White") ? "Black" : "White";
     }
