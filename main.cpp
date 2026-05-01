@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 // We use a primitive strict array struct instead of std::vector 
@@ -13,6 +14,13 @@ struct PieceList {
 int main() {
     Board board;
     string currentTurn = "White";
+
+    // Clear old move history and start a new log
+    ofstream initLog("move_history.txt");
+    if (initLog.is_open()) {
+        initLog << "=== New Chess Game Started ===\n";
+        initLog.close();
+    }
 
     while (true) {
         board.display();
@@ -95,6 +103,15 @@ int main() {
 
         // 4. Finally, process the physical move on the board
         board.makeMove(selectedSq.r, selectedSq.c, destination.r, destination.c);
+
+        // Write the move to our move history log file
+        ofstream logFile("move_history.txt", ios::app);
+        if (logFile.is_open()) {
+            logFile << currentTurn << " " << selectedPiece->getIdentity() 
+                    << " moved from " << board.getSquareName(selectedSq.r, selectedSq.c) 
+                    << " to " << board.getSquareName(destination.r, destination.c) << "\n";
+            logFile.close();
+        }
 
         // Announce check if the opponent's King is now under attack
         string opponent = (currentTurn == "White") ? "Black" : "White";
