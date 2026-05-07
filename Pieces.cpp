@@ -75,15 +75,15 @@ Rook::Rook(string color) : Piece("Rook", color) {}
 
 bool Rook::isValidMove(int from_Row, int from_Col, int to_Row, int to_Col, Piece* grid[8][8]) {
     if (from_Row != to_Row && from_Col != to_Col) return false;
-    int dR = (to_Row > from_Row) - (to_Row < from_Row);
-    int dC = (to_Col > from_Col) - (to_Col < from_Col);
+    int stepR = (to_Row > from_Row) - (to_Row < from_Row);
+    int stepC = (to_Col > from_Col) - (to_Col < from_Col);
 
-    int r = from_Row + dR;
-    int c = from_Col + dC;
+    int r = from_Row + stepR;
+    int c = from_Col + stepC;
     while (r != to_Row || c != to_Col) {
         if (grid[r][c] != nullptr) return false; 
-        r += dR;
-        c += dC;
+        r += stepR;
+        c += stepC;
     }
 
     if (grid[to_Row][to_Col] != nullptr && grid[to_Row][to_Col]->getColor() == color)
@@ -100,8 +100,8 @@ bool Bishop::isValidMove(int from_Row, int from_Col, int to_Row, int to_Col, Pie
     int dC = abs(to_Col - from_Col);
     if (dR != dC || dR == 0) return false;
 
-    int stepR = (to_Row > from_Row) ? 1 : -1;
-    int stepC = (to_Col > from_Col) ? 1 : -1;
+    int stepR = (to_Row > from_Row) - (to_Row < from_Row);
+    int stepC = (to_Col > from_Col) - (to_Col < from_Col);
 
     int r = from_Row + stepR;
     int c = from_Col + stepC;
