@@ -17,7 +17,7 @@ protected:
 public:
     Piece(string identity, string color);
     virtual ~Piece();
-
+    string getDisplay();
     string getIdentity();
     string getColor();
     bool getHasMoved();
@@ -28,7 +28,7 @@ public:
 
     // White pieces → UPPERCASE  e.g. "KING", "PAWN"
     // Black pieces → lowercase  e.g. "king", "pawn"
-    virtual string getDisplay();
+    
 };
 
 // ── Derived pieces ────────────────────────────────────────────────────────────
