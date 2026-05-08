@@ -1,4 +1,1 @@
 === New Chess Game Started ===
-White Pawn moved from F2 to F3
-Black Knight moved from G8 to H6
-White Pawn moved from A2 to A3
