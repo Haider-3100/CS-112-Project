@@ -101,15 +101,39 @@ int main() {
 
         Board::Position destination = possibleMoves.moves[moveChoice - 1];
 
+        // Check if a piece will be captured at the destination
+        bool captured = false;
+        string capturedPieceName = "";
+        string capturedPieceColor = "";
+        string capturedSquare = board.getSquareName(destination.r, destination.c);
+
+        Piece* targetPiece = board.getPiece(destination.r, destination.c);
+        if (targetPiece != nullptr) {
+            captured = true;
+            capturedPieceName = targetPiece->getIdentity();
+            capturedPieceColor = targetPiece->getColor();
+        }
+
         // 4. Finally, process the physical move on the board
         board.makeMove(selectedSq.r, selectedSq.c, destination.r, destination.c);
+
+        // Notify the user if a piece was captured
+        if (captured) {
+            cout << "\n*** CAPTURE! " << currentTurn << " " << selectedPiece->getIdentity()
+                 << " captured " << capturedPieceColor << " " << capturedPieceName
+                 << " at " << capturedSquare << "! ***\n";
+        }
 
         // Write the move to our move history log file
         ofstream logFile("move_history.txt", ios::app);
         if (logFile.is_open()) {
             logFile << currentTurn << " " << selectedPiece->getIdentity() 
                     << " moved from " << board.getSquareName(selectedSq.r, selectedSq.c) 
-                    << " to " << board.getSquareName(destination.r, destination.c) << "\n";
+                    << " to " << board.getSquareName(destination.r, destination.c);
+            if (captured) {
+                logFile << " (captured " << capturedPieceColor << " " << capturedPieceName << ")";
+            }
+            logFile << "\n";
             logFile.close();
         }
 
