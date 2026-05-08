@@ -119,9 +119,9 @@ int main() {
 
         // Notify the user if a piece was captured
         if (captured) {
-            cout << "\n*** CAPTURE! " << currentTurn << " " << selectedPiece->getIdentity()
+            cout << "\n************************\n*** CAPTURE! " << currentTurn << " " << selectedPiece->getIdentity()
                  << " captured " << capturedPieceColor << " " << capturedPieceName
-                 << " at " << capturedSquare << "! ***\n";
+                 << " at " << capturedSquare << "! ***\n************************\n";
         }
 
         // Write the move to our move history log file
